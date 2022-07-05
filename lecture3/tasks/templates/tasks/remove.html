@@ -1,0 +1,10 @@
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<h1>Remove</h1>
+<form action="{% url 'tasks:remove' %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" name="cancel" value="cancel">
+    <input type="submit" name="remove" value="remove">
+</form>
+{% endblock %}

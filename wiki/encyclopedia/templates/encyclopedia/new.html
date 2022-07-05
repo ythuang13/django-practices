@@ -1,0 +1,33 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+New Entry - Wiki
+{% endblock %}
+
+{% block body %}
+<h1>Create New Entry</h1>
+{% if error_message %}
+<h4 style="color: red">{{ error_message }}</h4>
+{% endif %}
+
+<form action="{% url 'encyclopedia:new' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    <div>
+        {{ field.errors }}
+        <div style="font-weight: bold">
+        {{ field.label_tag }}
+        </div>
+        <div>
+        {{ field }}
+        </div>
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+    <br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

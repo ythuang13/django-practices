@@ -1,0 +1,28 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Edit {{ title }} - Wiki
+{% endblock %}
+
+{% block body %}
+
+<h1>Edit {{ title }}</h1>
+
+{% if error_message %}
+<h4 style="color: red">{{ error_message }}</h4>
+{% endif %}
+
+<form action="{% url 'encyclopedia:edit' title=title %}" method="POST">
+    {% csrf_token %}
+    <div style="font-weight: bold">
+        <label>Edit Markdown Content:</label>
+    </div>
+    <div>
+        <input type="text" name="title" value="{{ title }}" hidden>
+        <textarea class="ne_text_body" name="body" cols="40" rows="10" required="">{{ old_content }}</textarea>
+    </div>
+    <div>
+        <input type="submit" value="Save">
+    </div>
+</form>
+{% endblock %}
