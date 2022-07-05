@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+<script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="card mb-2">
+    <div class="card-body px-3">
+        <h3>{{ profile_user.username }}</h3>
+        <p>Followers: {{ followers|length }}, Following: {{ following|length }}</p>
+        {% if profile_user != request.user and user.is_authenticated %}
+        <a href="" id="follow_link" data-user_id="{{ profile_user.id }}" data-csrf="{{ csrf_token }}">
+            {% if request.user in followers %}
+                unfollow 
+            {% else %}
+                follow
+            {% endif %}
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+{% for post in posts %}
+    {% include "network/post_layout.html" %}
+{% endfor %}
+
+{% endblock %}

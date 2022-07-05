@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class="card mb-2">
+    <div class="card-body px-3">
+        <h3>
+            <a class="text-decoration-none" href="{% url 'profile' post.user.id %}">
+                {{ post.user.username }}
+            </a>
+        </h3>
+        <p>{{ post.body }}</p>
+        <p>{{ post.timestamp }}</p>
+        {% if user.is_authenticated %}
+            <p>
+                <a href="{% url 'index' %}">
+                    
+                    🖤❤️
+                </a>
+                :{{ post.likes }}
+            </p>
+        {% else %}
+            <p>
+                Likes:
+                {{ post.likes }}
+            </p>
+        {% endif %}
+        
+        {% if post.user == request.user %}
+        <p>edit</p>
+        {% endif %}
+    </div>
+</div>

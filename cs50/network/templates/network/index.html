@@ -1,0 +1,33 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h2 class="fw-bold">All Posts</h2>
+
+    {% if message %}
+    <div>{{ message }}</div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="card">
+        <div class="card-body px-3">
+            <form class="row gap-1" action="{% url 'new' %}" method="post">
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <label class="fs-4" for="new-post-textarea">New Post</label>
+                    <textarea class="form-control" name="body"></textarea>
+                </div>
+                <div class="col-12">
+                    <input class="btn btn-primary" type="submit" value="Post">
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <br>
+
+    {% for post in posts %}
+        {% include "network/post_layout.html" %}
+    {% endfor %}
+
+{% endblock %}
